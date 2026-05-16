@@ -13,7 +13,7 @@ const OLLAMA_HOST     = process.env.OLLAMA_HOST     || 'http://localhost:11434';
 const OLLAMA_MODEL    = process.env.OLLAMA_MODEL    || 'gemma4:e4b';
 const VERTEX_PROJECT  = process.env.VERTEX_PROJECT  || 'gemma4-workshop';
 const VERTEX_LOCATION = process.env.VERTEX_LOCATION || 'us-central1';
-const VERTEX_MODEL    = process.env.VERTEX_MODEL    || 'gemma-3-4b-it';
+const VERTEX_MODEL    = process.env.VERTEX_MODEL    || 'gemini-2.0-flash-001';
 
 const ollama = new Ollama({ host: OLLAMA_HOST });
 
