@@ -8,12 +8,13 @@ import { dirname, join } from 'path';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 // ── LLM backend configuration ───────────────────────────────────────────────
-const LLM_BACKEND     = process.env.LLM_BACKEND     || 'ollama';   // 'ollama' | 'vertex'
+const LLM_BACKEND     = process.env.LLM_BACKEND     || 'ollama';   // 'ollama' | 'vertex' | 'google-ai'
 const OLLAMA_HOST     = process.env.OLLAMA_HOST     || 'http://localhost:11434';
 const OLLAMA_MODEL    = process.env.OLLAMA_MODEL    || 'gemma4:e4b';
 const VERTEX_PROJECT  = process.env.VERTEX_PROJECT  || 'gemma4-workshop';
 const VERTEX_LOCATION = process.env.VERTEX_LOCATION || 'us-central1';
 const VERTEX_MODEL    = process.env.VERTEX_MODEL    || 'gemini-2.0-flash-001';
+const GOOGLE_API_KEY  = process.env.GOOGLE_API_KEY  || '';
 
 const ollama = new Ollama({ host: OLLAMA_HOST });
 
@@ -180,6 +181,25 @@ async function streamVertex(res, system, user) {
   }
 }
 
+// ── Google AI Studio streaming ────────────────────────────────────────────────
+async function streamGoogleAI(res, system, user) {
+  const { GoogleGenerativeAI } = await import('@google/generative-ai');
+
+  const genAI = new GoogleGenerativeAI(GOOGLE_API_KEY);
+  const model = genAI.getGenerativeModel({
+    model: VERTEX_MODEL,
+    systemInstruction: system,
+    generationConfig: { temperature: 0.1, responseMimeType: 'application/json' },
+  });
+
+  const result = await model.generateContentStream(user);
+
+  for await (const chunk of result.stream) {
+    const content = chunk.text();
+    if (content) sseToken(res, content);
+  }
+}
+
 // ── /api/summarize ─────────────────────────────────────────────────────────────
 app.post('/api/summarize', async (req, res) => {
   const { teamsChat, incidentTicket, monitoringStatus } = req.body;
@@ -194,6 +214,8 @@ app.post('/api/summarize', async (req, res) => {
   try {
     if (LLM_BACKEND === 'vertex') {
       await streamVertex(res, system, user);
+    } else if (LLM_BACKEND === 'google-ai') {
+      await streamGoogleAI(res, system, user);
     } else {
       await streamOllama(res, system, user);
     }
