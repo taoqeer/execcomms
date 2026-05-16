@@ -1,0 +1,50 @@
+{
+  "source": "Dynatrace",
+  "pulled_at": "2026-05-16T11:30:00Z",
+  "overall_status": "DEGRADED",
+  "services": [
+    {
+      "name": "Auth Service (eu-west-1)",
+      "status": "DEGRADED",
+      "error_rate": "30%",
+      "latency_p99_ms": 1200,
+      "latency_baseline_ms": 200,
+      "last_healthy": "2026-05-16T10:45:00Z",
+      "alerts": [
+        { "severity": "HIGH", "message": "p99 auth latency 1200ms — threshold 500ms", "fired_at": "2026-05-16T11:14:22Z" },
+        { "severity": "HIGH", "message": "Session cache miss rate 28% (baseline <1%)", "fired_at": "2026-05-16T11:15:10Z" }
+      ]
+    },
+    {
+      "name": "Auth Service (us-east-1)",
+      "status": "HEALTHY",
+      "error_rate": "0.1%",
+      "latency_p99_ms": 185,
+      "alerts": []
+    },
+    {
+      "name": "Redis Session Cache (eu-west-1)",
+      "status": "CRITICAL",
+      "memory_used_pct": 74,
+      "memory_used_pct_peak": 92,
+      "eviction_rate_per_sec": 120,
+      "flush_status": "IN_PROGRESS",
+      "alerts": [
+        { "severity": "CRITICAL", "message": "Redis memory 92% — LRU eviction active", "fired_at": "2026-05-16T11:10:00Z" }
+      ]
+    },
+    {
+      "name": "Salesforce Integration",
+      "status": "DEGRADED",
+      "note": "JWT refresh failures causing Salesforce SSO disruption for 3 enterprise accounts"
+    }
+  ],
+  "infrastructure": {
+    "redis_memory_used_mb": 7577,
+    "redis_memory_total_mb": 8192,
+    "redis_memory_pct": 74,
+    "flush_progress_pct": 60,
+    "affected_sessions_count": 2400,
+    "affected_region": "eu-west-1"
+  }
+}

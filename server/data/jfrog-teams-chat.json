@@ -1,0 +1,114 @@
+[
+  {
+    "id": "msg-001",
+    "sender": "Alex Chen",
+    "avatar": "AC",
+    "role": "Senior DevOps Engineer",
+    "timestamp": "2026-05-16T08:03:11Z",
+    "message": "Hey team — getting build failures across the board. Artifactory is returning 503s. Anyone else seeing this?"
+  },
+  {
+    "id": "msg-002",
+    "sender": "Priya Sharma",
+    "avatar": "PS",
+    "role": "Platform Engineer",
+    "timestamp": "2026-05-16T08:04:22Z",
+    "message": "Yes! All our Harness pipelines are failing at the artifact pull step. Looks like it started around 8:00 AM."
+  },
+  {
+    "id": "msg-003",
+    "sender": "Marcus Webb",
+    "avatar": "MW",
+    "role": "CI/CD Lead",
+    "timestamp": "2026-05-16T08:05:45Z",
+    "message": "Confirmed. jfrog.company.internal is completely unreachable. curl is timing out. This is firm-wide, not just our team."
+  },
+  {
+    "id": "msg-004",
+    "sender": "Timmy Nguyen",
+    "avatar": "TN",
+    "role": "Product Owner",
+    "timestamp": "2026-05-16T08:06:10Z",
+    "message": "I'm raising this to JFrog infra team now. @Marcus Webb can you check the ServiceNow ticket? P1 severity — all CI is blocked."
+  },
+  {
+    "id": "msg-005",
+    "sender": "Lisa Park",
+    "avatar": "LP",
+    "role": "Backend Engineer",
+    "timestamp": "2026-05-16T08:07:33Z",
+    "message": "Our release train was supposed to deploy at 8:30. That's not happening. Three squads are now blocked: Payments, Auth, and Data Platform."
+  },
+  {
+    "id": "msg-006",
+    "sender": "Marcus Webb",
+    "avatar": "MW",
+    "role": "CI/CD Lead",
+    "timestamp": "2026-05-16T08:09:01Z",
+    "message": "Ticket is up: INC0043821. JFrog team says they're investigating storage issues on the primary node. No ETA yet."
+  },
+  {
+    "id": "msg-007",
+    "sender": "Ravi Patel",
+    "avatar": "RP",
+    "role": "SRE",
+    "timestamp": "2026-05-16T08:11:17Z",
+    "message": "I can see in Dynatrace — Artifactory disk usage hit 100% at 07:58 UTC. Storage volume exhausted. This is a full outage."
+  },
+  {
+    "id": "msg-008",
+    "sender": "Alex Chen",
+    "avatar": "AC",
+    "role": "Senior DevOps Engineer",
+    "timestamp": "2026-05-16T08:13:44Z",
+    "message": "Emergency workaround: can we pull from the DR mirror at jfrog-dr.company.internal? It was last synced at 07:45 UTC, so we'd be 15 min behind."
+  },
+  {
+    "id": "msg-009",
+    "sender": "Priya Sharma",
+    "avatar": "PS",
+    "role": "Platform Engineer",
+    "timestamp": "2026-05-16T08:15:02Z",
+    "message": "DR mirror is read-only and doesn't have the latest snapshot images. We'd be missing the hotfix we pushed at 07:50. Not safe for Payments."
+  },
+  {
+    "id": "msg-010",
+    "sender": "Timmy Nguyen",
+    "avatar": "TN",
+    "role": "Product Owner",
+    "timestamp": "2026-05-16T08:17:29Z",
+    "message": "JFrog infra team is on a bridge call. They're expanding the storage volume now — estimated 30-45 min to remount and restart services. @team stand by."
+  },
+  {
+    "id": "msg-011",
+    "sender": "Lisa Park",
+    "avatar": "LP",
+    "role": "Backend Engineer",
+    "timestamp": "2026-05-16T08:19:55Z",
+    "message": "Director of Engineering just pinged me. She needs an exec update ASAP. Timmy — can you get her a COMM? Business stakeholders are starting to ask questions."
+  },
+  {
+    "id": "msg-012",
+    "sender": "Ravi Patel",
+    "avatar": "RP",
+    "role": "SRE",
+    "timestamp": "2026-05-16T08:21:33Z",
+    "message": "Update from JFrog: storage volume resize is complete, now running fsck. Services should restart in ~25-30 min. Ticket ETA updated to 08:55 UTC."
+  },
+  {
+    "id": "msg-013",
+    "sender": "Marcus Webb",
+    "avatar": "MW",
+    "role": "CI/CD Lead",
+    "timestamp": "2026-05-16T08:23:10Z",
+    "message": "All Harness pipelines queued and paused. We'll auto-trigger retries once Artifactory is back. No manual intervention needed."
+  },
+  {
+    "id": "msg-014",
+    "sender": "Alex Chen",
+    "avatar": "AC",
+    "role": "Senior DevOps Engineer",
+    "timestamp": "2026-05-16T08:25:47Z",
+    "message": "Root cause confirmed by JFrog: automated log rotation job failed silently last night, allowing binary cache to fill the volume. Permanent fix: increase volume to 4TB and add disk alert at 80%."
+  }
+]

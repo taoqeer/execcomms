@@ -1,0 +1,50 @@
+{
+  "source": "Dynatrace",
+  "pulled_at": "2026-05-16T08:09:00Z",
+  "overall_status": "CRITICAL",
+  "services": [
+    {
+      "name": "JFrog Artifactory",
+      "host": "jfrog.company.internal",
+      "status": "DOWN",
+      "uptime_30d": "99.91%",
+      "last_healthy": "2026-05-16T07:57:00Z",
+      "error_rate": "100%",
+      "latency_p99_ms": null,
+      "alerts": [
+        { "severity": "CRITICAL", "message": "HTTP 503 rate 100% on port 8082", "fired_at": "2026-05-16T07:59:44Z" },
+        { "severity": "CRITICAL", "message": "Host unreachable — no root cause identified", "fired_at": "2026-05-16T08:01:00Z" }
+      ]
+    },
+    {
+      "name": "Harness CI Pipelines",
+      "status": "DOWN",
+      "error_rate": "100%",
+      "active_pipelines": 0,
+      "queued_pipelines": 0,
+      "failed_last_hour": 23,
+      "alerts": [
+        { "severity": "CRITICAL", "message": "All pipelines failing — artifact fetch returning 503", "fired_at": "2026-05-16T08:01:05Z" }
+      ]
+    },
+    {
+      "name": "Payments Service",
+      "status": "BLOCKED",
+      "note": "Deployment blocked — CI pipeline cannot complete"
+    },
+    {
+      "name": "Auth Service",
+      "status": "BLOCKED",
+      "note": "Deployment blocked — CI pipeline cannot complete"
+    }
+  ],
+  "infrastructure": {
+    "artifactory_disk_used_gb": 2048,
+    "artifactory_disk_total_gb": 2048,
+    "artifactory_disk_pct": 100,
+    "resize_status": "NOT_STARTED",
+    "fsck_status": "NOT_STARTED",
+    "service_restart_status": "NOT_STARTED",
+    "note": "Root cause unknown — investigation ongoing"
+  }
+}

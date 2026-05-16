@@ -1,0 +1,40 @@
+{
+  "ticket_id": "INC0043821",
+  "title": "JFrog Artifactory Firm-Wide Outage — RESOLVED",
+  "status": "Resolved",
+  "severity": "P1",
+  "priority": "Critical",
+  "opened_at": "2026-05-16T08:02:44Z",
+  "updated_at": "2026-05-16T09:05:00Z",
+  "resolved_at": "2026-05-16T09:00:14Z",
+  "duration_minutes": 62,
+  "eta": null,
+  "eta_human": "Resolved at 09:00 UTC",
+  "assigned_to": "JFrog Infrastructure Team",
+  "reported_by": "Automated Monitor — Dynatrace",
+  "affected_systems": [
+    "JFrog Artifactory (jfrog.company.internal)",
+    "Harness CI/CD Pipelines",
+    "All artifact-dependent build processes"
+  ],
+  "affected_teams": ["Platform Engineering", "Payments", "Auth Services", "Data Platform", "CI/CD"],
+  "rca": "Artifactory primary storage volume reached 100% capacity at 07:58 UTC. Root cause: automated log rotation job (cron: logrotate.d/artifactory) failed silently on 2026-05-15 due to a stale lock file (/var/run/logrotate.lock held by a zombie process), allowing binary cache and build logs to accumulate and exhaust the 2TB volume over ~14 hours. Disk usage alerts were configured at 95% — the volume filled the final 2% within 10 minutes, leaving no time for automated intervention.",
+  "resolution_steps": [
+    "1. Emergency volume resize: 2TB → 4TB on primary node (08:15–08:22 UTC)",
+    "2. fsck completed successfully (08:22 UTC)",
+    "3. Artifactory service restarted successfully (09:00 UTC)",
+    "4. Stale lock file cleared, logrotate re-enabled",
+    "5. Disk alert threshold lowered to 80%",
+    "6. Post-mortem scheduled: 2026-05-19"
+  ],
+  "business_impact": "All CI/CD pipelines firm-wide blocked for 62 minutes. Payments release train delayed by 90 minutes. Approximately 47 engineers impacted across 8 squads. No customer-facing service degradation occurred — only internal build systems affected.",
+  "workaround": "N/A — incident resolved",
+  "communication_log": [
+    { "time": "08:05 UTC", "note": "Bridge call opened with JFrog infra team" },
+    { "time": "08:15 UTC", "note": "Storage expansion approved and initiated" },
+    { "time": "08:22 UTC", "note": "Volume resize complete, fsck running" },
+    { "time": "08:25 UTC", "note": "ETA confirmed 08:55 UTC" },
+    { "time": "09:00 UTC", "note": "Artifactory restored, pipelines recovering" },
+    { "time": "09:05 UTC", "note": "All systems confirmed healthy — ticket closed" }
+  ]
+}

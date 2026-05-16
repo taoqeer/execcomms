@@ -1,0 +1,31 @@
+{
+  "ticket_id": "INC0043821",
+  "title": "JFrog Artifactory Firm-Wide Outage — Under Investigation",
+  "status": "Investigating",
+  "severity": "P1",
+  "priority": "Critical",
+  "opened_at": "2026-05-16T08:02:44Z",
+  "updated_at": "2026-05-16T08:09:00Z",
+  "eta": null,
+  "eta_human": "Unknown — investigation in progress",
+  "assigned_to": "JFrog Infrastructure Team",
+  "reported_by": "Automated Monitor — Dynatrace",
+  "affected_systems": [
+    "JFrog Artifactory (jfrog.company.internal)",
+    "Harness CI/CD Pipelines",
+    "All artifact-dependent build processes"
+  ],
+  "affected_teams": ["Platform Engineering", "Payments", "Auth Services", "Data Platform", "CI/CD"],
+  "rca": "Unknown. JFrog Artifactory is returning HTTP 503 errors firm-wide. Root cause investigation is in progress. No information available yet.",
+  "resolution_steps": [
+    "1. Ticket opened and assigned to JFrog Infrastructure Team",
+    "2. Engineers investigating — no root cause identified yet"
+  ],
+  "business_impact": "All CI/CD pipelines firm-wide unable to pull or push artifacts. Approximately 47 engineers blocked across 8 squads. Release train scheduled for 08:30 UTC at risk.",
+  "workaround": "None identified yet.",
+  "communication_log": [
+    { "time": "08:03 UTC", "note": "First reports of 503 errors from engineers" },
+    { "time": "08:05 UTC", "note": "Confirmed firm-wide — ticket INC0043821 opened" },
+    { "time": "08:09 UTC", "note": "JFrog infra team assigned, investigation started" }
+  ]
+}

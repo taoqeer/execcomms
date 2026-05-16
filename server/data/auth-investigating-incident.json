@@ -1,0 +1,32 @@
+{
+  "ticket_id": "INC0043887",
+  "title": "Auth Service Degraded — EU-West Region — Under Investigation",
+  "status": "Investigating",
+  "severity": "P2",
+  "priority": "High",
+  "opened_at": "2026-05-16T11:14:00Z",
+  "updated_at": "2026-05-16T11:19:00Z",
+  "eta": null,
+  "eta_human": "Unknown — investigation in progress",
+  "assigned_to": "Auth Platform Team",
+  "reported_by": "Customer Success + Automated Monitor",
+  "affected_systems": [
+    "Auth Service (eu-west-1)",
+    "JWT Token Refresh Endpoint",
+    "Salesforce Integration Layer"
+  ],
+  "affected_teams": ["Auth Platform", "Customer Success", "Enterprise Accounts"],
+  "rca": "Unknown. Auth service in EU-West region is experiencing elevated latency (4-6s vs <200ms baseline). Approximately 30% of auth requests affected. Root cause under investigation.",
+  "resolution_steps": [
+    "1. Ticket INC0043887 opened, Auth Platform Team assigned",
+    "2. SRE investigating Redis, database, and network layers",
+    "3. No root cause identified yet"
+  ],
+  "business_impact": "Approximately 30% of EU-West region users experiencing session drops and authentication failures. 3 enterprise accounts impacted including Salesforce SSO disruption. US-region appears unaffected.",
+  "workaround": "None identified yet.",
+  "communication_log": [
+    { "time": "11:14 UTC", "note": "Auth latency spike first reported by Security Engineering" },
+    { "time": "11:15 UTC", "note": "Customer success reports 3 enterprise accounts affected" },
+    { "time": "11:18 UTC", "note": "Ticket opened, investigation in progress" }
+  ]
+}

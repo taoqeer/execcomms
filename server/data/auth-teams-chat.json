@@ -1,0 +1,98 @@
+[
+  {
+    "id": "msg-001",
+    "sender": "Jordan Kim",
+    "avatar": "JK",
+    "role": "Security Engineer",
+    "timestamp": "2026-05-16T11:14:05Z",
+    "message": "Heads up — seeing elevated latency on the auth service. Token validation is taking 4-6s instead of the normal <200ms."
+  },
+  {
+    "id": "msg-002",
+    "sender": "Sam Torres",
+    "avatar": "ST",
+    "role": "Backend Engineer",
+    "timestamp": "2026-05-16T11:15:22Z",
+    "message": "Users are getting logged out mid-session. Getting reports from customer success team — Salesforce integration is breaking because JWT refresh is failing."
+  },
+  {
+    "id": "msg-003",
+    "sender": "Timmy Nguyen",
+    "avatar": "TN",
+    "role": "Product Owner",
+    "timestamp": "2026-05-16T11:16:08Z",
+    "message": "How widespread? Is this affecting all users or a subset?"
+  },
+  {
+    "id": "msg-004",
+    "sender": "Jordan Kim",
+    "avatar": "JK",
+    "role": "Security Engineer",
+    "timestamp": "2026-05-16T11:17:33Z",
+    "message": "Looking at logs — hitting ~30% of auth requests. Seems correlated with users in the EU-West region. US users appear unaffected."
+  },
+  {
+    "id": "msg-005",
+    "sender": "Dana Osei",
+    "avatar": "DO",
+    "role": "SRE",
+    "timestamp": "2026-05-16T11:19:01Z",
+    "message": "Datadog shows the Redis session cache in eu-west-1 is at 92% memory. I think it's evicting active sessions. That's the token validation lag."
+  },
+  {
+    "id": "msg-006",
+    "sender": "Sam Torres",
+    "avatar": "ST",
+    "role": "Backend Engineer",
+    "timestamp": "2026-05-16T11:20:44Z",
+    "message": "The cache shouldn't be that full. Was there a deployment? @Jordan Kim did your team push anything to auth last night?"
+  },
+  {
+    "id": "msg-007",
+    "sender": "Jordan Kim",
+    "avatar": "JK",
+    "role": "Security Engineer",
+    "timestamp": "2026-05-16T11:22:17Z",
+    "message": "Yes — we deployed the new refresh token rotation feature at 23:45 UTC last night. It stores both old and new tokens during the rotation window. Could be doubling cache usage."
+  },
+  {
+    "id": "msg-008",
+    "sender": "Dana Osei",
+    "avatar": "DO",
+    "role": "SRE",
+    "timestamp": "2026-05-16T11:23:55Z",
+    "message": "That's it. The rotation TTL is set to 24h — so EU-West has been accumulating paired tokens since midnight. Redis is basically double-loaded. Flushing expired keys now."
+  },
+  {
+    "id": "msg-009",
+    "sender": "Timmy Nguyen",
+    "avatar": "TN",
+    "role": "Product Owner",
+    "timestamp": "2026-05-16T11:25:10Z",
+    "message": "Customer success says 3 enterprise accounts have called in. What's our ETA on resolution? I need to notify the account managers."
+  },
+  {
+    "id": "msg-010",
+    "sender": "Dana Osei",
+    "avatar": "DO",
+    "role": "SRE",
+    "timestamp": "2026-05-16T11:26:44Z",
+    "message": "Flush is ~60% done. Redis memory already down to 74%. Auth latency dropping — seeing p99 at 1.2s and falling. ETA to normal: 15-20 minutes."
+  },
+  {
+    "id": "msg-011",
+    "sender": "Jordan Kim",
+    "avatar": "JK",
+    "role": "Security Engineer",
+    "timestamp": "2026-05-16T11:28:22Z",
+    "message": "We'll need to roll back the 24h rotation TTL to 1h as a hotfix. PR is ready — needs review and deploy. That's the permanent fix."
+  },
+  {
+    "id": "msg-012",
+    "sender": "Sam Torres",
+    "avatar": "ST",
+    "role": "Backend Engineer",
+    "timestamp": "2026-05-16T11:30:07Z",
+    "message": "Reviewing PR now. Latency is back to 800ms. Getting better. Users should stop seeing logouts soon."
+  }
+]

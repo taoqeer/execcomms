@@ -1,0 +1,45 @@
+{
+  "source": "Dynatrace",
+  "pulled_at": "2026-05-16T09:06:00Z",
+  "overall_status": "HEALTHY",
+  "services": [
+    {
+      "name": "JFrog Artifactory",
+      "host": "jfrog.company.internal",
+      "status": "HEALTHY",
+      "uptime_30d": "99.78%",
+      "last_healthy": "2026-05-16T09:00:14Z",
+      "error_rate": "0%",
+      "latency_p99_ms": 142,
+      "alerts": []
+    },
+    {
+      "name": "Harness CI Pipelines",
+      "status": "HEALTHY",
+      "error_rate": "0.2%",
+      "active_pipelines": 18,
+      "queued_pipelines": 5,
+      "failed_last_hour": 0,
+      "alerts": []
+    },
+    {
+      "name": "Payments Service",
+      "status": "HEALTHY",
+      "note": "Deploy completed successfully at 09:04 UTC"
+    },
+    {
+      "name": "Auth Service",
+      "status": "HEALTHY",
+      "note": "Running — pipeline retries completing"
+    }
+  ],
+  "infrastructure": {
+    "artifactory_disk_used_gb": 1966,
+    "artifactory_disk_total_gb": 4096,
+    "artifactory_disk_pct": 48,
+    "resize_status": "COMPLETE",
+    "fsck_status": "COMPLETE",
+    "service_restart_status": "COMPLETE",
+    "incident_duration_minutes": 62
+  }
+}

@@ -1,0 +1,82 @@
+[
+  {
+    "id": "msg-001",
+    "sender": "Jordan Kim",
+    "avatar": "JK",
+    "role": "Security Engineer",
+    "timestamp": "2026-05-16T11:14:05Z",
+    "message": "Heads up — seeing elevated latency on the auth service. Token validation is taking 4-6s instead of the normal <200ms."
+  },
+  {
+    "id": "msg-002",
+    "sender": "Sam Torres",
+    "avatar": "ST",
+    "role": "Backend Engineer",
+    "timestamp": "2026-05-16T11:15:22Z",
+    "message": "Users are getting logged out mid-session. Getting reports from customer success team — Salesforce integration is breaking because JWT refresh is failing."
+  },
+  {
+    "id": "msg-003",
+    "sender": "Dana Osei",
+    "avatar": "DO",
+    "role": "SRE",
+    "timestamp": "2026-05-16T11:19:01Z",
+    "message": "Datadog shows Redis session cache in eu-west-1 at 92% memory — evicting active sessions. That's the lag."
+  },
+  {
+    "id": "msg-004",
+    "sender": "Jordan Kim",
+    "avatar": "JK",
+    "role": "Security Engineer",
+    "timestamp": "2026-05-16T11:22:17Z",
+    "message": "Root cause: refresh token rotation feature deployed last night has a 24h TTL — doubling cache size over 12 hours. Emergency flush started."
+  },
+  {
+    "id": "msg-005",
+    "sender": "Dana Osei",
+    "avatar": "DO",
+    "role": "SRE",
+    "timestamp": "2026-05-16T11:26:44Z",
+    "message": "Flush 60% done. Redis memory down to 74%. Auth latency dropping — p99 at 1.2s and falling. ETA to normal: 15-20 minutes."
+  },
+  {
+    "id": "msg-006",
+    "sender": "Jordan Kim",
+    "avatar": "JK",
+    "role": "Security Engineer",
+    "timestamp": "2026-05-16T11:28:22Z",
+    "message": "Hotfix PR is ready — reduces rotation TTL from 24h to 1h. Gets us back to safe memory levels permanently."
+  },
+  {
+    "id": "msg-007",
+    "sender": "Sam Torres",
+    "avatar": "ST",
+    "role": "Backend Engineer",
+    "timestamp": "2026-05-16T11:30:07Z",
+    "message": "Reviewed and approved the hotfix PR. Latency is back to 800ms and dropping. Users should stop seeing logouts very soon."
+  },
+  {
+    "id": "msg-008",
+    "sender": "Dana Osei",
+    "avatar": "DO",
+    "role": "SRE",
+    "timestamp": "2026-05-16T11:45:33Z",
+    "message": "Flush complete. Redis at 41%. Auth latency p99 = 190ms — back to baseline. Hotfix deployed to eu-west-1. 🟢"
+  },
+  {
+    "id": "msg-009",
+    "sender": "Jordan Kim",
+    "avatar": "JK",
+    "role": "Security Engineer",
+    "timestamp": "2026-05-16T11:47:10Z",
+    "message": "Salesforce integration restored. Enterprise account team confirmed SSO is working again. All 3 affected accounts back online."
+  },
+  {
+    "id": "msg-010",
+    "sender": "Timmy Nguyen",
+    "avatar": "TN",
+    "role": "Product Owner",
+    "timestamp": "2026-05-16T11:49:02Z",
+    "message": "Incident resolved at 11:45 UTC. Duration: 31 minutes. No customer data impacted. Closing INC0043887. Great catch and fast fix — will add token rotation testing to our pre-deploy checklist."
+  }
+]

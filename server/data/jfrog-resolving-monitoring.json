@@ -1,0 +1,50 @@
+{
+  "source": "Dynatrace",
+  "pulled_at": "2026-05-16T08:26:00Z",
+  "overall_status": "CRITICAL",
+  "services": [
+    {
+      "name": "JFrog Artifactory",
+      "host": "jfrog.company.internal",
+      "status": "DOWN",
+      "uptime_30d": "99.91%",
+      "last_healthy": "2026-05-16T07:57:00Z",
+      "error_rate": "100%",
+      "latency_p99_ms": null,
+      "alerts": [
+        { "severity": "CRITICAL", "message": "Host disk usage 100% — /var/opt/jfrog/artifactory", "fired_at": "2026-05-16T07:58:12Z" },
+        { "severity": "CRITICAL", "message": "HTTP 503 rate 100% on port 8082", "fired_at": "2026-05-16T07:59:44Z" }
+      ]
+    },
+    {
+      "name": "Harness CI Pipelines",
+      "status": "DEGRADED",
+      "error_rate": "94%",
+      "active_pipelines": 0,
+      "queued_pipelines": 23,
+      "failed_last_hour": 47,
+      "alerts": [
+        { "severity": "HIGH", "message": "Artifact fetch failure rate 94% across all pipelines", "fired_at": "2026-05-16T08:01:05Z" }
+      ]
+    },
+    {
+      "name": "Payments Service",
+      "status": "BLOCKED",
+      "note": "Deployment blocked pending Artifactory restoration"
+    },
+    {
+      "name": "Auth Service",
+      "status": "STABLE",
+      "note": "Running on current version, deployment blocked"
+    }
+  ],
+  "infrastructure": {
+    "artifactory_disk_used_gb": 2048,
+    "artifactory_disk_total_gb": 2048,
+    "artifactory_disk_pct": 100,
+    "resize_target_gb": 4096,
+    "resize_status": "COMPLETE",
+    "fsck_status": "COMPLETE",
+    "service_restart_status": "IN_PROGRESS"
+  }
+}

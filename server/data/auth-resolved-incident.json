@@ -1,0 +1,39 @@
+{
+  "ticket_id": "INC0043887",
+  "title": "Auth Service Degraded — EU-West Session Cache Exhaustion — RESOLVED",
+  "status": "Resolved",
+  "severity": "P2",
+  "priority": "High",
+  "opened_at": "2026-05-16T11:14:00Z",
+  "updated_at": "2026-05-16T11:49:00Z",
+  "resolved_at": "2026-05-16T11:45:00Z",
+  "duration_minutes": 31,
+  "eta": null,
+  "eta_human": "Resolved at 11:45 UTC",
+  "assigned_to": "Auth Platform Team",
+  "reported_by": "Customer Success + Automated Monitor",
+  "affected_systems": [
+    "Auth Service (eu-west-1)",
+    "Redis Session Cache (eu-west-1)",
+    "JWT Token Refresh Endpoint",
+    "Salesforce Integration Layer"
+  ],
+  "affected_teams": ["Auth Platform", "Customer Success", "Enterprise Accounts"],
+  "rca": "Refresh token rotation feature (deployed 23:45 UTC) stored token pairs with a 24-hour TTL, causing Redis in eu-west-1 to accumulate double the normal session data over 12 hours of EU-West traffic. At 92% Redis memory utilization, LRU eviction began removing active sessions, producing 4-6s auth latency and session invalidations for ~30% of EU-West users.",
+  "resolution_steps": [
+    "1. Emergency Redis flush initiated at 11:23 UTC — expired rotation tokens cleared",
+    "2. Redis memory recovered from 92% to 41%",
+    "3. Hotfix deployed: rotation TTL reduced from 24h to 1h (PR #8821)",
+    "4. Added token rotation memory testing to pre-deploy checklist",
+    "5. Post-mortem scheduled: 2026-05-19"
+  ],
+  "business_impact": "31-minute degradation impacting ~30% of EU-West users (~2,400 sessions). 3 enterprise accounts experienced Salesforce SSO disruption. No data loss. No US-region impact. All accounts restored.",
+  "workaround": "N/A — incident resolved",
+  "communication_log": [
+    { "time": "11:14 UTC", "note": "Auth latency spike detected" },
+    { "time": "11:23 UTC", "note": "Root cause identified, Redis flush initiated" },
+    { "time": "11:28 UTC", "note": "Hotfix PR submitted" },
+    { "time": "11:45 UTC", "note": "Flush complete, hotfix deployed — incident resolved" },
+    { "time": "11:49 UTC", "note": "All enterprise accounts confirmed restored — ticket closed" }
+  ]
+}

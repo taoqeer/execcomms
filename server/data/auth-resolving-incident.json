@@ -1,0 +1,35 @@
+{
+  "ticket_id": "INC0043887",
+  "title": "Auth Service Degraded — EU-West Session Cache Exhaustion",
+  "status": "In Progress",
+  "severity": "P2",
+  "priority": "High",
+  "opened_at": "2026-05-16T11:14:00Z",
+  "updated_at": "2026-05-16T11:28:00Z",
+  "eta": "2026-05-16T11:50:00Z",
+  "eta_human": "20 minutes from 11:30 UTC",
+  "assigned_to": "Auth Platform Team",
+  "reported_by": "Customer Success + Automated Monitor",
+  "affected_systems": [
+    "Auth Service (eu-west-1)",
+    "Redis Session Cache (eu-west-1)",
+    "JWT Token Refresh Endpoint",
+    "Salesforce Integration Layer"
+  ],
+  "affected_teams": ["Auth Platform", "Customer Success", "Enterprise Accounts"],
+  "rca": "Refresh token rotation feature deployed at 23:45 UTC introduced a 24-hour TTL for token pairs, causing Redis in eu-west-1 to store both old and new tokens during the rotation window. Over 12 hours of EU-West user activity, cache grew to 92% memory utilization, triggering LRU eviction of active sessions and producing 4-6 second latency spikes.",
+  "resolution_steps": [
+    "1. Initiated Redis key flush for expired rotation tokens at 11:23 UTC",
+    "2. Redis memory reduced to 74% — latency recovering",
+    "3. Hotfix PR: reduce rotation TTL from 24h to 1h — in review",
+    "4. Deploy hotfix post-flush completion"
+  ],
+  "business_impact": "Approximately 30% of EU-West region users experiencing session drops. 3 enterprise accounts impacted including Salesforce integration disruption. ~2,400 affected sessions. No US-region impact.",
+  "workaround": "Emergency Redis flush in progress — partially restoring service.",
+  "communication_log": [
+    { "time": "11:14 UTC", "note": "Auth latency spike detected" },
+    { "time": "11:23 UTC", "note": "Root cause identified — Redis double-load from token rotation TTL bug" },
+    { "time": "11:23 UTC", "note": "Emergency Redis flush initiated" },
+    { "time": "11:28 UTC", "note": "Hotfix PR ready for review, ETA 11:50 UTC" }
+  ]
+}

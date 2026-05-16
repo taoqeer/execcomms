@@ -1,0 +1,34 @@
+{
+  "ticket_id": "INC0043821",
+  "title": "JFrog Artifactory Firm-Wide Outage — Storage Volume Exhausted",
+  "status": "In Progress",
+  "severity": "P1",
+  "priority": "Critical",
+  "opened_at": "2026-05-16T08:02:44Z",
+  "updated_at": "2026-05-16T08:25:00Z",
+  "eta": "2026-05-16T08:55:00Z",
+  "eta_human": "45 minutes from 08:10 UTC",
+  "assigned_to": "JFrog Infrastructure Team",
+  "reported_by": "Automated Monitor — Dynatrace",
+  "affected_systems": [
+    "JFrog Artifactory (jfrog.company.internal)",
+    "Harness CI/CD Pipelines",
+    "All artifact-dependent build processes"
+  ],
+  "affected_teams": ["Platform Engineering", "Payments", "Auth Services", "Data Platform", "CI/CD"],
+  "rca": "Artifactory primary storage volume reached 100% capacity at 07:58 UTC. Root cause: automated log rotation job (cron: logrotate.d/artifactory) failed silently on 2026-05-15 due to a stale lock file, allowing binary cache and build logs to accumulate and exhaust the 2TB volume. The failure went undetected because disk usage alerts were configured at 95% — volume filled in the final 2% gap within 10 minutes.",
+  "resolution_steps": [
+    "1. Emergency volume resize initiated at 08:15 UTC — 2TB → 4TB on primary node",
+    "2. fsck completed successfully at 08:22 UTC",
+    "3. Artifactory service restart in progress",
+    "4. Post-recovery: clear stale lock file, re-enable logrotate, add 80% disk alert"
+  ],
+  "business_impact": "All CI/CD pipelines firm-wide are unable to pull or push artifacts. 3 release trains blocked including Payments scheduled release at 08:30 UTC. Approximately 47 engineers idle across 8 squads. Customer-facing deployments delayed.",
+  "workaround": "None viable. DR mirror is stale (07:45 UTC sync) and missing critical hotfix artifacts.",
+  "communication_log": [
+    { "time": "08:05 UTC", "note": "Bridge call opened with JFrog infra team" },
+    { "time": "08:15 UTC", "note": "Storage expansion approved and initiated" },
+    { "time": "08:22 UTC", "note": "Volume resize complete, fsck running" },
+    { "time": "08:25 UTC", "note": "ETA confirmed 08:55 UTC, services restarting" }
+  ]
+}

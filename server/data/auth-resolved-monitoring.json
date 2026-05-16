@@ -1,0 +1,46 @@
+{
+  "source": "Dynatrace",
+  "pulled_at": "2026-05-16T11:50:00Z",
+  "overall_status": "HEALTHY",
+  "services": [
+    {
+      "name": "Auth Service (eu-west-1)",
+      "status": "HEALTHY",
+      "error_rate": "0.1%",
+      "latency_p99_ms": 190,
+      "latency_baseline_ms": 200,
+      "last_healthy": "2026-05-16T11:45:00Z",
+      "alerts": []
+    },
+    {
+      "name": "Auth Service (us-east-1)",
+      "status": "HEALTHY",
+      "error_rate": "0.1%",
+      "latency_p99_ms": 185,
+      "alerts": []
+    },
+    {
+      "name": "Redis Session Cache (eu-west-1)",
+      "status": "HEALTHY",
+      "memory_used_pct": 41,
+      "memory_used_pct_peak": 92,
+      "eviction_rate_per_sec": 0,
+      "flush_status": "COMPLETE",
+      "alerts": []
+    },
+    {
+      "name": "Salesforce Integration",
+      "status": "HEALTHY",
+      "note": "All 3 enterprise accounts restored — SSO functioning normally"
+    }
+  ],
+  "infrastructure": {
+    "redis_memory_used_mb": 3359,
+    "redis_memory_total_mb": 8192,
+    "redis_memory_pct": 41,
+    "flush_progress_pct": 100,
+    "affected_sessions_count": 0,
+    "affected_region": "eu-west-1",
+    "incident_duration_minutes": 31
+  }
+}

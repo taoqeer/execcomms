@@ -1,0 +1,114 @@
+[
+  {
+    "id": "msg-001",
+    "sender": "Alex Chen",
+    "avatar": "AC",
+    "role": "Senior DevOps Engineer",
+    "timestamp": "2026-05-16T08:03:11Z",
+    "message": "Hey team — getting build failures across the board. Artifactory is returning 503s. Anyone else seeing this?"
+  },
+  {
+    "id": "msg-002",
+    "sender": "Priya Sharma",
+    "avatar": "PS",
+    "role": "Platform Engineer",
+    "timestamp": "2026-05-16T08:04:22Z",
+    "message": "Yes! All our Harness pipelines are failing at the artifact pull step. Looks like it started around 8:00 AM."
+  },
+  {
+    "id": "msg-003",
+    "sender": "Marcus Webb",
+    "avatar": "MW",
+    "role": "CI/CD Lead",
+    "timestamp": "2026-05-16T08:05:45Z",
+    "message": "Confirmed. jfrog.company.internal is completely unreachable. curl is timing out. This is firm-wide, not just our team."
+  },
+  {
+    "id": "msg-004",
+    "sender": "Timmy Nguyen",
+    "avatar": "TN",
+    "role": "Product Owner",
+    "timestamp": "2026-05-16T08:06:10Z",
+    "message": "I'm raising this to JFrog infra team now. @Marcus Webb can you check the ServiceNow ticket? P1 severity — all CI is blocked."
+  },
+  {
+    "id": "msg-005",
+    "sender": "Lisa Park",
+    "avatar": "LP",
+    "role": "Backend Engineer",
+    "timestamp": "2026-05-16T08:07:33Z",
+    "message": "Our release train was supposed to deploy at 8:30. That's not happening. Three squads are now blocked: Payments, Auth, and Data Platform."
+  },
+  {
+    "id": "msg-006",
+    "sender": "Marcus Webb",
+    "avatar": "MW",
+    "role": "CI/CD Lead",
+    "timestamp": "2026-05-16T08:09:01Z",
+    "message": "Ticket is up: INC0043821. JFrog team says they're investigating storage issues on the primary node. No ETA yet."
+  },
+  {
+    "id": "msg-007",
+    "sender": "Ravi Patel",
+    "avatar": "RP",
+    "role": "SRE",
+    "timestamp": "2026-05-16T08:11:17Z",
+    "message": "I can see in Dynatrace — Artifactory disk usage hit 100% at 07:58 UTC. Storage volume exhausted. This is a full outage."
+  },
+  {
+    "id": "msg-008",
+    "sender": "Timmy Nguyen",
+    "avatar": "TN",
+    "role": "Product Owner",
+    "timestamp": "2026-05-16T08:17:29Z",
+    "message": "JFrog infra team is on a bridge call. Root cause confirmed: log rotation job failed, cache filled the 2TB volume. Expanding storage now — ETA 45 minutes."
+  },
+  {
+    "id": "msg-009",
+    "sender": "Ravi Patel",
+    "avatar": "RP",
+    "role": "SRE",
+    "timestamp": "2026-05-16T08:21:33Z",
+    "message": "Update from JFrog: storage volume resize complete, now running fsck. Services should restart in ~25-30 min. Ticket ETA updated to 08:55 UTC."
+  },
+  {
+    "id": "msg-010",
+    "sender": "Marcus Webb",
+    "avatar": "MW",
+    "role": "CI/CD Lead",
+    "timestamp": "2026-05-16T08:23:10Z",
+    "message": "All Harness pipelines queued and paused. We'll auto-trigger retries once Artifactory is back. No manual intervention needed."
+  },
+  {
+    "id": "msg-011",
+    "sender": "Alex Chen",
+    "avatar": "AC",
+    "role": "Senior DevOps Engineer",
+    "timestamp": "2026-05-16T09:00:14Z",
+    "message": "Artifactory is BACK. Pipelines are running. First build completed successfully at 09:00 UTC. 🟢"
+  },
+  {
+    "id": "msg-012",
+    "sender": "Priya Sharma",
+    "avatar": "PS",
+    "role": "Platform Engineer",
+    "timestamp": "2026-05-16T09:01:47Z",
+    "message": "Confirmed — all queued pipelines running. Payments deploy just kicked off. Auth and Data Platform also recovering."
+  },
+  {
+    "id": "msg-013",
+    "sender": "Ravi Patel",
+    "avatar": "RP",
+    "role": "SRE",
+    "timestamp": "2026-05-16T09:03:22Z",
+    "message": "Dynatrace is green across the board. Artifactory disk at 48% on the new 4TB volume. Permanent fixes applied: stale lock file cleared, logrotate re-enabled, 80% disk alert configured."
+  },
+  {
+    "id": "msg-014",
+    "sender": "Timmy Nguyen",
+    "avatar": "TN",
+    "role": "Product Owner",
+    "timestamp": "2026-05-16T09:05:01Z",
+    "message": "Incident resolved at 09:00 UTC. Total duration: 62 minutes. Closing INC0043821. Post-mortem scheduled for Monday. Great work everyone — fast response under pressure."
+  }
+]
